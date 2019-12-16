@@ -21,6 +21,21 @@ def get_arguments():
     return arguments
 
 
+def generate_payload(api_result, file_extension):
+
+    payload = api_result
+
+    if(file_extension):
+
+        if(file_extension.split('.')[1] == 'csv'):
+            payload = get_csv_path(api_result, file_extension)
+
+        if(file_extension.split('.')[1] == 'json'):
+            payload = get_json_path(api_result, file_extension)
+
+    return payload
+
+
 def get_api_result(method, endpoint):
     api_result = requests.get(
         'https://jsonplaceholder.typicode.com%s' % endpoint)

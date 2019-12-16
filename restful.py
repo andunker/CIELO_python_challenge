@@ -1,7 +1,7 @@
 #!./vEnv/bin/python
 import requests
 
-from utils import get_arguments, get_csv_path, get_json_path, make_response, get_api_result
+from utils import get_arguments, get_csv_path, get_json_path, make_response, get_api_result, generate_payload
 
 try:
 
@@ -9,17 +9,7 @@ try:
 
     api_result = get_api_result(arguments.METHOD, arguments.endpoint)
 
-    payload = api_result.json()
-
-    if(arguments.output):
-
-        if(arguments.output.split('.')[1] == 'csv'):
-            payload = get_csv_path(payload, arguments.output)
-
-        if(arguments.output.split('.')[1] == 'json'):
-            payload = get_json_path(payload, arguments.output)
-
-    status_code = 200
+    payload = generate_payload(api_result.json(), arguments.output)
 
     response = make_response(200, payload)
 
