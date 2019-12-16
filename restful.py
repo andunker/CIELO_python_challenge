@@ -1,26 +1,28 @@
 #!./vEnv/bin/python
-
-import json
-
 import requests
-import argparse
+
+from utils import get_arguments, get_csv_path, get_json_path, make_response, get_api_result
 
 try:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('METHOD', choices=[
-                        'get', 'post'], help='Request method')
-    parser.add_argument('endpoint', help='Request endpoint URI fragment')
 
-    parser.add_argument('-d', '--data', help='Data to send with request')
-    parser.add_argument(
-        '-o', '--output', help='Output to .json or .csv file (default: dump to stdout)')
+    arguments = get_arguments()
 
-    arguments = parser.parse_args()
+    api_result = get_api_result(arguments.METHOD, arguments.endpoint)
 
-    if(arguments.METHOD == 'get'):
-        response = requests.get(
-            'https://jsonplaceholder.typicode.com%s' % arguments.endpoint)
+    payload = api_result.json()
 
-    print(response.text)
+    if(arguments.output):
+
+        if(arguments.output.split('.')[1] == 'csv'):
+            payload = get_csv_path(payload, arguments.output)
+
+        if(arguments.output.split('.')[1] == 'json'):
+            payload = get_json_path(payload, arguments.output)
+
+    status_code = 200
+
+    response = make_response(200, payload)
+
+    print(response)
 except Exception as exception:
-    print('Error')
+    print('something went wrong')
