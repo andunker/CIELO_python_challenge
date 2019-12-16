@@ -1,2 +1,5 @@
 .vscode
 vEnv
+dockerfile
+start.sh
+stop.sh
