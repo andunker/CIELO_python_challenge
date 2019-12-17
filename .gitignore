@@ -1,2 +1,10 @@
+*.pyc
+
 .vscode
 vEnv
+dockerfile
+start.sh
+stop.sh
+
+test.csv
+test.json
