@@ -7,7 +7,7 @@ try:
 
     arguments = get_arguments()
 
-    api_result = get_api_result(arguments.METHOD, arguments.endpoint)
+    api_result = get_api_result(arguments.METHOD, arguments.endpoint, arguments.data)
 
     payload = generate_payload(api_result.json(), arguments.output)
 

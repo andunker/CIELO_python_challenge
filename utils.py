@@ -36,9 +36,16 @@ def generate_payload(api_result, file_extension):
     return payload
 
 
-def get_api_result(method, endpoint):
-    api_result = requests.get(
-        'https://jsonplaceholder.typicode.com%s' % endpoint)
+def get_api_result(method, endpoint, data=None):
+
+    if method == 'get':
+        api_result = requests.get(
+            'https://jsonplaceholder.typicode.com%s' % endpoint)
+
+    elif method == 'post':
+        api_result = requests.post(
+            'https://jsonplaceholder.typicode.com%s' % endpoint, data)
+
     return api_result
 
 
